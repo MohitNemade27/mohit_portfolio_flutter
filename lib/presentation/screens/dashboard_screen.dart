@@ -30,17 +30,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final List<WorkExperience> workExperiences = [
     WorkExperience(
-      companyName: "Wolters Kluwer India Pvt.Ltd",
-      role: "Full stack Developer",
+      companyName: "Wolters Kluwer India Pvt. Ltd",
+      role: "Full Stack Developer",
       duration: "2023 - Present",
-      description: "Working on enterprise solutions and legal tech applications",
+      description: "Building scalable enterprise and legal tech platforms with modern full-stack technologies.",
       icon: FontAwesomeIcons.building,
     ),
     WorkExperience(
-      companyName: "StandardWings Technology Pvt.Ltd ",
+      companyName: "StandardWings Technology Pvt. Ltd",
       role: "Mobile App Developer",
       duration: "2021 - 2023",
-      description: "Developed cross-platform applications and UI/UX solutions",
+      description: "Developed high-performance cross-platform apps with rich UI/UX, serving diverse industry needs.",
       icon: FontAwesomeIcons.mobileScreen,
     ),
   ];
@@ -418,9 +418,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             child: const Padding(
                               padding: EdgeInsets.all(12.0),
                               child: Text(
-                                '''I'm Mohit Nemade, a Flutter Developer with 3+ years of experience building robust, offline-first mobile apps. I've worked at Wolters Kluwer Pvt. Ltd. and StandardWings Technology, contributing to projects like Lippincott Solutions—focusing on Flutter, SQLite, WebView, background services, and performance optimization.
-
-Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate about building clean UI/UX and scalable mobile solutions. I'm open to roles in Nashik, Pune, or Bengaluru, and eager to take on new challenges in mobile development, AI, or IoT.''',
+                                '''I'm Mohit Nemade, a Flutter Developer with over 3 years of experience in building robust, offline-first mobile applications. Currently, I serve as a Product Software Engineer at Wolters Kluwer, where I contribute to enterprise solutions and legal tech applications. Previously, at StandardWings Technology, I developed cross-platform applications with a focus on UI/UX design. 
+                         
+              My technical expertise includes Flutter, Dart, Android (Java/Kotlin), and web technologies like HTML, CSS, and JavaScript. I'm passionate about creating clean, scalable mobile solutions and am open to opportunities in Nashik, Pune, or Bengaluru, especially in the fields of mobile development, AI, or IoT.''',
                                 style: TextStyle(color: Colors.white60, height: 1.8, fontSize: 16),
                                 textAlign: TextAlign.center,
                               ),
@@ -576,7 +576,12 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
         Row(
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final uri = Uri.parse("https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/Resume_mohit.pdf");
+                if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
