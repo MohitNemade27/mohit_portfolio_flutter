@@ -104,11 +104,20 @@ class ProjectDetailDialog extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Project Description
-                Text(
-                  details,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    height: 1.5,
+                Flexible(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 300, // Adjust height as needed for responsiveness
+                    ),
+                    child: SingleChildScrollView(
+                      child: Text(
+                        details,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
 

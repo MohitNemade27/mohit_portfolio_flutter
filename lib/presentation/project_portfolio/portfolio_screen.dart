@@ -21,10 +21,11 @@ class PortfolioSection extends StatelessWidget {
           children: [
             _projectCard(context, "Lippincott Solutions (Mobile)", "assets/lippincott.png", project1Details, "", 'assets/lns_mobile.png'),
             _projectCard(context, "Lippincott Solutions (web)", "assets/lippincott.png", project1Details, "https://advisor.qa.lww.com/lna/login", 'assets/lnsWeb.png'),
-            _projectCard(context, "Garbage Weight IOT", "assets/img_company_logo.png", project2Details, "NA", 'assets/flutter_garbage_weight_management_img.png'),
+            _projectCard(context, "Garbage Weight IOT (Desktop)", "assets/img_company_logo.png", project2Details, "NA", 'assets/flutter_garbage_weight_management_img.png'),
             _projectCard(context, "NMC Face Attendance", "assets/face.png", project3Details, "https://play.google.com/store/apps/details?id=com.swt.nmc_attendance&hl=en", 'assets/nmc_face.png'),
             _projectCard(context, "HSEF@Champion", "assets/snap@champ_img.png", project4Details, "https://play.google.com/store/apps/details?id=com.champmgt.snapchampion&hl=en", 'assets/snapChamp.png'),
             _projectCard(context, "Sunrayz", "assets/sunrayz.png", project5Details, "https://play.google.com/store/apps/details?id=com.sunrayztechnology.apex_school", 'assets/sunrayz_mobile_demo.png'),
+            _projectCard(context, "Hidoc (Web)", "assets/hidoclogo-desktop.png", project5Details, "https://in.webapp.hidoc.co/", 'assets/hidoc_home_page.png'),
           ],
         )
       ],
