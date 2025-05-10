@@ -21,7 +21,7 @@ class ProjectDetailDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool hasImage = appImagePath != null && appImagePath!.isNotEmpty;
-    final bool hasLink = playStoreLink != null && playStoreLink!.isNotEmpty;
+    final bool hasLink = playStoreLink != null && playStoreLink=="NA"?false:true;
 
     return Dialog(
       insetPadding: const EdgeInsets.all(16),
@@ -61,36 +61,43 @@ class ProjectDetailDialog extends StatelessWidget {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (_) => Dialog(
+                        builder: (context) => Dialog( // Use the context from the builder
                           backgroundColor: Colors.black,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: PhotoView(
-                              imageProvider: appImagePath!.startsWith('http') ? CachedNetworkImageProvider(appImagePath!) : AssetImage(appImagePath!) as ImageProvider,
-                            ),
+                          child: Stack( // Use a Stack to position the close button
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: PhotoView(
+                                  imageProvider: CachedNetworkImageProvider(appImagePath!),
+                                ),
+                              ),
+                              Positioned( // Position the close button
+                                top: 10,
+                                right: 10,
+                                child: IconButton(
+                                  icon: const Icon(Icons.close, color: Colors.white),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Use the context here
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: appImagePath!.startsWith('http')
-                          ? CachedNetworkImage(
-                              imageUrl: appImagePath!,
-                              height: 180,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              errorWidget: (context, url, error) => const Icon(Icons.broken_image, size: 80),
-                            )
-                          : Image.asset(
-                              appImagePath!,
-                              height: 180,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
+                        borderRadius: BorderRadius.circular(12),
+                        child:  CachedNetworkImage(
+                          imageUrl: appImagePath!,
+                          height: 180,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(Icons.broken_image, size: 80),
+                        )
                     ),
                   ),
 
@@ -111,10 +118,12 @@ class ProjectDetailDialog extends StatelessWidget {
                 if (hasLink)
                   GestureDetector(
                     onTap: () async {
+
                       final uri = Uri.parse(playStoreLink!);
                       if (await canLaunchUrl(uri)) {
                         await launchUrl(uri, mode: LaunchMode.externalApplication);
                       }
+
                     },
                     child: Row(
                       children: const [
