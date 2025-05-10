@@ -113,7 +113,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           width: 100,
           decoration: getGlassCardDecoration(),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(20),
               child: CachedNetworkImage(
                 imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/LOGO.jpg",
                 placeholder: (context, url) => CircularProgressIndicator(), // Show while loading
