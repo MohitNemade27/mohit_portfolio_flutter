@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:mohit_portfolio_flutter_web/app/common_widgets/candidate_detail/candidate_dialoge_widgets.dart';
 import 'package:mohit_portfolio_flutter_web/app/common_widgets/glass_box_decoration.dart';
 import 'package:mohit_portfolio_flutter_web/data/work_experience_model.dart';
 import 'package:mohit_portfolio_flutter_web/presentation/project_portfolio/portfolio_screen.dart';
@@ -107,21 +108,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: const Color(0xFF121212),
       appBar: isMobile
           ? AppBar(
+        automaticallyImplyLeading: isMobile, // allow drawer icon on mobile
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.black.withOpacity(0.7),
         title: Container(
           height: 100,
           width: 100,
           decoration: getGlassCardDecoration(),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: CachedNetworkImage(
-                fit: BoxFit.fill,
-                imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/LOGO.jpg",
-                placeholder: (context, url) => CircularProgressIndicator(), // Show while loading
-                errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
-              )),
+            borderRadius: BorderRadius.circular(20),
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/LOGO.jpg",
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          ),
         ),
-        actions: [
+        actions: isMobile
+            ? null
+            : [
           IconButton(
             icon: Icon(isMenuOpen ? Icons.close : Icons.menu, color: Colors.white),
             onPressed: () {
@@ -135,40 +141,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
           : null,
       drawer: isMobile
           ? Drawer(
-        backgroundColor: const Color(0xFF121212),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFF1E1E1E),
+              backgroundColor: const Color(0xFF121212),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1E1E1E),
+                    ),
+                    child: Text(
+                      'Menu',
+                      style: TextStyle(color: Colors.orange, fontSize: 24),
+                    ),
+                  ),
+                  ..._sections
+                      .map((section) => ListTile(
+                            title: Text(section, style: const TextStyle(color: Colors.white)),
+                            onTap: () {
+                              Navigator.pop(context);
+                              _scrollToSection(_getKeyForSection(section));
+                            },
+                          ))
+                      .toList(),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                      child: const Text("Hire Me"),
+                    ),
+                  ),
+                ],
               ),
-              child: Text(
-                'Menu',
-                style: TextStyle(color: Colors.orange, fontSize: 24),
-              ),
-            ),
-            ..._sections
-                .map((section) => ListTile(
-              title: Text(section, style: const TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pop(context);
-                _scrollToSection(_getKeyForSection(section));
-              },
-            ))
-                .toList(),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-                child: const Text("Hire Me"),
-              ),
-            ),
-          ],
-        ),
-      )
+            )
           : null,
       body: Stack(
         children: [
@@ -258,15 +264,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             if (!isTablet) ...[
                               ..._sections.map((section) => Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: InkWell(
-                                  onTap: () => _scrollToSection(_getKeyForSection(section)),
-                                  child: Text(
-                                    section,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              )),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: InkWell(
+                                      onTap: () => _scrollToSection(_getKeyForSection(section)),
+                                      child: Text(
+                                        section,
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  )),
                               const SizedBox(width: 20),
                             ],
                             ElevatedButton(
@@ -298,20 +304,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Column(
                       children: _sections
                           .map((section) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              isMenuOpen = false;
-                            });
-                            _scrollToSection(_getKeyForSection(section));
-                          },
-                          child: Text(
-                            section,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ))
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      isMenuOpen = false;
+                                    });
+                                    _scrollToSection(_getKeyForSection(section));
+                                  },
+                                  child: Text(
+                                    section,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ))
                           .toList(),
                     ),
                   ),
@@ -325,30 +331,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   child: isMobile || isTablet
                       ? Column(
-                    children: [
-                      // Top content
-                      _buildHeroContent(context, isMobile),
-                      const SizedBox(height: 30),
-                      // Images for Mobile/Tablet - wrap grid view for better responsiveness
-                      _buildResponsiveImageGrid(isMobile, isTablet),
-                    ],
-                  )
+                          children: [
+                            // Top content
+                            _buildHeroContent(context, isMobile),
+                            const SizedBox(height: 30),
+                            // Images for Mobile/Tablet - wrap grid view for better responsiveness
+                            _buildResponsiveImageGrid(isMobile, isTablet),
+                          ],
+                        )
                       : Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Left Content
-                      Expanded(
-                        flex: 3,
-                        child: _buildHeroContent(context, isMobile),
-                      ),
-                      const SizedBox(width: 40),
-                      // Right Images for Web/Desktop - horizontal row
-                      Expanded(
-                        flex: 2,
-                        child: _buildResponsiveImageGrid(isMobile, isTablet),
-                      ),
-                    ],
-                  ),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Left Content
+                            Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: _buildHeroContent(context, isMobile),
+                              ),
+                            ),
+                            const SizedBox(width: 40),
+                            // Right Images for Web/Desktop - horizontal row
+                            Expanded(
+                              flex: 2,
+                              child: _buildResponsiveImageGrid(isMobile, isTablet),
+                            ),
+                          ],
+                        ),
                 ),
 
                 // Services Section
@@ -396,8 +405,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               maxWidth: isMobile
                                   ? screenSize.width * 0.8
                                   : isTablet
-                                  ? 300
-                                  : 400,
+                                      ? 300
+                                      : 400,
                             ),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
@@ -412,8 +421,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               maxWidth: isMobile
                                   ? screenSize.width * 0.9
                                   : isTablet
-                                  ? 400
-                                  : 600,
+                                      ? 400
+                                      : 600,
                             ),
                             child: const Padding(
                               padding: EdgeInsets.all(12.0),
@@ -456,13 +465,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         alignment: WrapAlignment.center,
                         children: workExperiences
                             .map((work) => _buildWorkExperienceCard(
-                          work,
-                          isMobile
-                              ? screenSize.width * 0.85
-                              : isTablet
-                              ? screenSize.width * 0.45
-                              : screenSize.width * 0.30,
-                        ))
+                                  work,
+                                  isMobile
+                                      ? screenSize.width * 0.85
+                                      : isTablet
+                                          ? screenSize.width * 0.45
+                                          : screenSize.width * 0.30,
+                                ))
                             .toList(),
                       ),
                     ],
@@ -577,10 +586,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                final uri = Uri.parse("https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/Resume_mohit.pdf");
-                if (await canLaunchUrl(uri)) {
-                await launchUrl(uri, mode: LaunchMode.externalApplication);
-                }
+                showCandidateDialog(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
@@ -639,8 +645,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final imageSize = isMobile
         ? 120.0
         : isTablet
-        ? 160.0
-        : 200.0;
+            ? 160.0
+            : 200.0;
 
     return Wrap(
       alignment: WrapAlignment.center,
@@ -779,52 +785,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
       alignment: WrapAlignment.center,
       children: services
           .map((service) => Container(
-        width: isMobile
-            ? MediaQuery.of(context).size.width * 0.85
-            : isTablet
-            ? MediaQuery.of(context).size.width * 0.45
-            : MediaQuery.of(context).size.width * 0.22,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color(0xFF1E1E1E),
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Icon(service['icon'] as IconData, color: Colors.orange, size: 30),
-            ),
-            const SizedBox(height: 15),
-            Text(
-              service['title'] as String,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              service['description'] as String,
-              style: const TextStyle(color: Colors.white60),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ))
+                width: isMobile
+                    ? MediaQuery.of(context).size.width * 0.85
+                    : isTablet
+                        ? MediaQuery.of(context).size.width * 0.45
+                        : MediaQuery.of(context).size.width * 0.22,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1E1E1E),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Icon(service['icon'] as IconData, color: Colors.orange, size: 30),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      service['title'] as String,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      service['description'] as String,
+                      style: const TextStyle(color: Colors.white60),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ))
           .toList(),
     );
   }
@@ -853,8 +859,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               width: isMobile
                   ? MediaQuery.of(context).size.width * 0.9
                   : isTablet
-                  ? MediaQuery.of(context).size.width * 0.7
-                  : MediaQuery.of(context).size.width * 0.45,
+                      ? MediaQuery.of(context).size.width * 0.7
+                      : MediaQuery.of(context).size.width * 0.45,
               padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
                 color: const Color(0xFF1E1E1E),
@@ -911,8 +917,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: isMobile
                     ? MediaQuery.of(context).size.width * 0.9
                     : isTablet
-                    ? MediaQuery.of(context).size.width * 0.7
-                    : MediaQuery.of(context).size.width * 0.25,
+                        ? MediaQuery.of(context).size.width * 0.7
+                        : MediaQuery.of(context).size.width * 0.25,
                 padding: const EdgeInsets.all(30),
                 decoration: BoxDecoration(
                   color: const Color(0xFF1E1E1E),

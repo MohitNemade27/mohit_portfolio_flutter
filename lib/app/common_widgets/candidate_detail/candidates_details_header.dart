@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CandidateDetailsHeader extends StatelessWidget {
   const CandidateDetailsHeader({Key? key}) : super(key: key);
@@ -34,9 +35,12 @@ class CandidateDetailsHeader extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            onPressed: () {
+            onPressed: () async {
               // Show download success message
-              _showDownloadingSnackbar(context);
+              final uri = Uri.parse("https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/Resume_mohit.pdf");
+              if (await canLaunchUrl(uri)) {
+              await launchUrl(uri, mode: LaunchMode.externalApplication);
+              }
 
               // Here you would typically trigger the actual resume download
               // For demonstration purposes, we'll just show a success dialog after a delay
