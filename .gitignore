@@ -32,6 +32,21 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+# Flutter/Dart/Pub related
+
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Web build
+build/web/
 
 # Symbolication related
 app.*.symbols
