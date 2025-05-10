@@ -13,7 +13,7 @@ class PortfolioSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text("Projects", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white)),
+        const Text("Portfolio", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white)),
         const SizedBox(height: 20),
         Wrap(
           spacing: 20,

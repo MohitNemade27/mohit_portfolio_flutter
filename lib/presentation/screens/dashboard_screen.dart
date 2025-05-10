@@ -635,7 +635,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           color: Colors.white.withOpacity(0.1),
           borderRadius: BorderRadius.circular(50),
         ),
-        child: Icon(icon, color: Colors.white),
+        child: Icon(icon, color: Colors.orange),
       ),
     );
   }
@@ -912,55 +912,56 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
 
             // Contact Info
-            if (!isMobile)
-              Container(
-                width: isMobile
-                    ? MediaQuery.of(context).size.width * 0.9
-                    : isTablet
-                        ? MediaQuery.of(context).size.width * 0.7
-                        : MediaQuery.of(context).size.width * 0.25,
-                padding: const EdgeInsets.all(30),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1E1E1E),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Contact Information",
-                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 20),
-                    _buildContactInfo(FontAwesomeIcons.envelope, "Email", "mohitnemade27@gmail.com"),
-                    const SizedBox(height: 15),
-                    _buildContactInfo(FontAwesomeIcons.phone, "Phone", "+91 8208499926"),
-                    const SizedBox(height: 15),
-                    _buildContactInfo(FontAwesomeIcons.locationDot, "Location", "Pune, Maharashtra, India"),
-                    const SizedBox(height: 30),
-                    const Text(
-                      "Follow Me",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        _buildSocialIcon(FontAwesomeIcons.linkedin, "https://www.linkedin.com/in/mohit-nemade27"),
-                        const SizedBox(width: 15),
-                        _buildSocialIcon(FontAwesomeIcons.github, 'https://github.com/MohitNemade27/mohit_portfolio_flutter'),
-                        const SizedBox(width: 15),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              buildContactSection(isMobile, isTablet, context)
           ],
         ),
       ],
     );
   }
+  Widget buildContactSection(bool isMobile, bool isTablet, BuildContext context) {
+    return Container(
+      width: isMobile
+          ? MediaQuery.of(context).size.width * 0.95
+          : isTablet
+          ? MediaQuery.of(context).size.width * 0.7
+          : MediaQuery.of(context).size.width * 0.25,
+      margin: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.all(24),
+      decoration: getGlassCardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Contact Information",
+            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
 
+          _buildContactInfo(FontAwesomeIcons.envelope, "Email", "mohitnemade27@gmail.com"),
+          const SizedBox(height: 15),
+          _buildContactInfo(FontAwesomeIcons.phone, "Phone", "+91 8208499926"),
+          const SizedBox(height: 15),
+          _buildContactInfo(FontAwesomeIcons.locationDot, "Location", "Pune, Maharashtra, India"),
+
+          const SizedBox(height: 30),
+
+          const Text(
+            "Follow Me",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          const SizedBox(height: 15),
+
+          Wrap(
+            spacing: 15,
+            children: [
+              _buildSocialIcon(FontAwesomeIcons.linkedin, "https://www.linkedin.com/in/mohit-nemade27"),
+              _buildSocialIcon(FontAwesomeIcons.github, 'https://github.com/MohitNemade27/mohit_portfolio_flutter'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
   // Contact info item
   Widget _buildContactInfo(IconData icon, String title, String value) {
     return Row(
@@ -981,7 +982,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               Text(
                 title,
-                style: const TextStyle(color: Colors.white70),
+                style: const TextStyle(color: Colors.black),
               ),
               const SizedBox(height: 5),
               InkWell(
