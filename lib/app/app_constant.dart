@@ -1,6 +1,6 @@
 const String project1Details = '''
 Built clinical decision support apps (Advisor & Procedure) for doctors and nurses.
-- Successfully delivered project in 3 months, despite a 6-month expected timeline, under my direct supervision.
+- Successfully delivered mobile app project in 3 months, despite a 6-month expected timeline, under my direct supervision.
 - Implemented robust offline access using SQLite and efficient state management with BLoC architecture.
 - Integrating Generative AI technology to create an innovative smart symptom checker.
 - Developed scalable backend communication system using NestJS and RESTful APIs.

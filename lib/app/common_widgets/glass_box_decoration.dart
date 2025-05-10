@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 BoxDecoration getGlassCardDecoration() {
   return BoxDecoration(
     color: Colors.white.withOpacity(0.35),
-    borderRadius: BorderRadius.circular(12),
+    borderRadius: BorderRadius.circular(20),
     border: Border.all(color: Colors.white.withOpacity(0.2)),
     boxShadow: [
       BoxShadow(
