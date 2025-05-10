@@ -17,53 +17,68 @@ class PortfolioSection extends StatelessWidget {
           spacing: 20,
           runSpacing: 20,
           children: [
-            _projectCard(context, "Lippincott Solutions", "assets/lippincott.png", project1Details),
-            _projectCard(context, "Garbage Weight IOT", "assets/img_company_logo.png", project2Details),
-            _projectCard(context, "NMC Face Attendance", "assets/face.png", project3Details),
+            _projectCard(context, "Lippincott Solutions", "assets/lippincott.png", project1Details,"https://advisor.qa.lww.com/lna/login",'assets/lns_mobile.png'),
+            _projectCard(context, "Garbage Weight IOT", "assets/img_company_logo.png", project2Details,"NA",'assets/flutter_garbage_weight_management_img.png'),
+            _projectCard(context, "NMC Face Attendance", "assets/face.png", project3Details,"https://play.google.com/store/apps/details?id=com.swt.nmc_attendance&hl=en",'NA'),
+            _projectCard(context, "HSEF@Champion", "assets/snap@champ_img.png", project4Details,"https://play.google.com/store/apps/details?id=com.champmgt.snapchampion&hl=en",'NA'),
+            _projectCard(context, "Sunrayz", "assets/sunrayz.png", project5Details,"https://play.google.com/store/apps/details?id=com.sunrayztechnology.apex_school",'NA'),
           ],
         )
       ],
     );
   }
 
-  Widget _projectCard(BuildContext context, String title, String imagePath, String details) {
-    return InkWell(
-      onTap: () => showDialog(
-        context: context,
-        builder: (_) => ProjectDetailDialog(title: title, details: details),
-      ),
-      child: Container(
-        width: 300,
-        padding: const EdgeInsets.all(20),
+  Widget _projectCard(BuildContext context, String title, String imagePath, String details, String playStoreLink, String appImagePath) {
+    return Container(
+      width: 300,
+      padding: const EdgeInsets.all(20),
+      decoration: getGlassCardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+        Container(
+        height: 100,
+        width: 100,
         decoration: getGlassCardDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-          Container(
-          height: 100,
-          width: 100,
-          decoration: getGlassCardDecoration(),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.scaleDown, // Or use BoxFit.contain if needed
-            ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.scaleDown, // Or use BoxFit.contain if needed
           ),
         ),
-            const SizedBox(height: 12),
-            Center(
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+      ),
+          const SizedBox(height: 12),
+          Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                 showDialog(
+                  context: context,
+                  builder: (_) => ProjectDetailDialog(title: title, details: details, playStoreLink: playStoreLink,appImagePath:appImagePath));
+              },
+              child: const Text('More detail'),
+            ),
+          ),
+        ],
       ),
     );
   }
