@@ -1,16 +1,14 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:mohit_portfolio_flutter_web/app/common_widgets/candidate_detail/candidate_dialoge_widgets.dart';
-import 'package:mohit_portfolio_flutter_web/app/common_widgets/circular_orange_widget.dart';
-import 'package:mohit_portfolio_flutter_web/app/common_widgets/education_detail_widget/education_details_widget.dart';
-import 'package:mohit_portfolio_flutter_web/app/common_widgets/info_stat_card.dart';
-import 'package:mohit_portfolio_flutter_web/app/common_widgets/ui_utils/ui_utils.dart';
+import 'package:mohit_portfolio_flutter_web/app/common_widgets/glass_box_decoration.dart';
 import 'package:mohit_portfolio_flutter_web/data/work_experience_model.dart';
 import 'package:mohit_portfolio_flutter_web/presentation/project_portfolio/portfolio_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -110,7 +108,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: isMobile
           ? AppBar(
         backgroundColor: Colors.black.withOpacity(0.7),
-        title: const Text("LOGO", style: TextStyle(color: Colors.orange, fontSize: 20)),
+        title: Container(
+          height: 100,
+          width: 100,
+          decoration: getGlassCardDecoration(),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: CachedNetworkImage(
+                imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/LOGO.jpg",
+                placeholder: (context, url) => CircularProgressIndicator(), // Show while loading
+                errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
+              )),
+        ),
         actions: [
           IconButton(
             icon: Icon(isMenuOpen ? Icons.close : Icons.menu, color: Colors.white),
@@ -138,13 +147,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 style: TextStyle(color: Colors.orange, fontSize: 24),
               ),
             ),
-            ..._sections.map((section) => ListTile(
+            ..._sections
+                .map((section) => ListTile(
               title: Text(section, style: const TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.pop(context);
                 _scrollToSection(_getKeyForSection(section));
               },
-            )).toList(),
+            ))
+                .toList(),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -229,7 +240,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("LOGO", style: TextStyle(color: Colors.orange, fontSize: 20)),
+                        Container(
+                          height: 100,
+                          width: 100,
+                          decoration: getGlassCardDecoration(),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: CachedNetworkImage(
+                                imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/LOGO.jpg",
+                                placeholder: (context, url) => CircularProgressIndicator(), // Show while loading
+                                errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
+                              )),
+                        ),
                         Row(
                           children: [
                             if (!isTablet) ...[
@@ -272,7 +294,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Column(
-                      children: _sections.map((section) => Padding(
+                      children: _sections
+                          .map((section) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: InkWell(
                           onTap: () {
@@ -286,7 +309,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
-                      )).toList(),
+                      ))
+                          .toList(),
                     ),
                   ),
 
@@ -358,10 +382,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   child: Column(
                     children: [
-                      const Text(
-                          "About Me",
-                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)
-                      ),
+                      const Text("About Me", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
                       const SizedBox(height: 20),
                       Wrap(
                         alignment: WrapAlignment.center,
@@ -370,19 +391,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         children: [
                           Container(
                             constraints: BoxConstraints(
-                              maxWidth: isMobile ? screenSize.width * 0.8 : isTablet ? 300 : 400,
+                              maxWidth: isMobile
+                                  ? screenSize.width * 0.8
+                                  : isTablet
+                                  ? 300
+                                  : 400,
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                "assets/laptop_me.png",
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                                borderRadius: BorderRadius.circular(10),
+                                child: CachedNetworkImage(
+                                  imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/laptop_me.png",
+                                  placeholder: (context, url) => CircularProgressIndicator(), // Show while loading
+                                  errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
+                                )),
                           ),
                           Container(
                             constraints: BoxConstraints(
-                              maxWidth: isMobile ? screenSize.width * 0.9 : isTablet ? 400 : 600,
+                              maxWidth: isMobile
+                                  ? screenSize.width * 0.9
+                                  : isTablet
+                                  ? 400
+                                  : 600,
                             ),
                             child: const Padding(
                               padding: EdgeInsets.all(12.0),
@@ -526,7 +555,7 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
                 speed: const Duration(milliseconds: 100),
               ),
               TypewriterAnimatedText(
-                'UI/UX Designer',
+                'Full Stack Developer',
                 textStyle: TextStyle(
                   fontSize: isMobile ? 20 : 24,
                   color: Colors.white,
@@ -568,13 +597,10 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
         const SizedBox(height: 30),
         Row(
           children: [
-            _buildSocialIcon(FontAwesomeIcons.linkedin),
+            _buildSocialIcon(FontAwesomeIcons.linkedin, "https://www.linkedin.com/in/mohit-nemade27"),
             const SizedBox(width: 20),
-            _buildSocialIcon(FontAwesomeIcons.github),
+            _buildSocialIcon(FontAwesomeIcons.github, 'https://github.com/MohitNemade27/mohit_portfolio_flutter'),
             const SizedBox(width: 20),
-            _buildSocialIcon(FontAwesomeIcons.twitter),
-            const SizedBox(width: 20),
-            _buildSocialIcon(FontAwesomeIcons.envelope),
           ],
         ),
       ],
@@ -582,49 +608,73 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
   }
 
   // Social media icon widget
-  Widget _buildSocialIcon(IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(50),
+  Widget _buildSocialIcon(IconData icon, String platformLink) {
+    return InkWell(
+      onTap: () async {
+        final uri = Uri.parse(platformLink);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Icon(icon, color: Colors.white),
       ),
-      child: Icon(icon, color: Colors.white),
     );
   }
 
   // Responsive image grid
   Widget _buildResponsiveImageGrid(bool isMobile, bool isTablet) {
-    final imageSize = isMobile ? 120.0 : isTablet ? 160.0 : 200.0;
+    final imageSize = isMobile
+        ? 120.0
+        : isTablet
+        ? 160.0
+        : 200.0;
 
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 15,
       runSpacing: 15,
       children: [
-        Image.asset(
-          "assets/flutter_logo.png",
+        CachedNetworkImage(
+          imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/flutter_logo.png",
           height: imageSize,
           width: imageSize,
           fit: BoxFit.contain,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          // Show while loading
+          errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
         ),
-        Image.asset(
-          "assets/android.png",
+        CachedNetworkImage(
+          imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/android.png",
           height: imageSize,
           width: imageSize,
           fit: BoxFit.contain,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          // Show while loading
+          errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
         ),
-        Image.asset(
-          "assets/javaScript.png",
+        CachedNetworkImage(
+          imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/javaScript.png",
           height: imageSize,
           width: imageSize,
           fit: BoxFit.contain,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          // Show while loading
+          errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
         ),
-        Image.asset(
-          "assets/Angular.png",
+        CachedNetworkImage(
+          imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/Angular.png",
           height: imageSize,
           width: imageSize,
           fit: BoxFit.contain,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          // Show while loading
+          errorWidget: (context, url, error) => Icon(Icons.error), // Show if there's an error
         ),
       ],
     );
@@ -705,11 +755,6 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
         'icon': FontAwesomeIcons.mobileScreen,
       },
       {
-        'title': 'UI/UX Design',
-        'description': 'Designing intuitive and engaging user interfaces with a focus on user experience.',
-        'icon': FontAwesomeIcons.penToSquare,
-      },
-      {
         'title': 'Web Development',
         'description': 'Building responsive web applications using modern frameworks and technologies.',
         'icon': FontAwesomeIcons.chrome,
@@ -725,7 +770,8 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
       spacing: 20,
       runSpacing: 20,
       alignment: WrapAlignment.center,
-      children: services.map((service) => Container(
+      children: services
+          .map((service) => Container(
         width: isMobile
             ? MediaQuery.of(context).size.width * 0.85
             : isTablet
@@ -771,7 +817,8 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
             ),
           ],
         ),
-      )).toList(),
+      ))
+          .toList(),
     );
   }
 
@@ -872,11 +919,11 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
                       style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20),
-                    _buildContactInfo(FontAwesomeIcons.envelope, "Email", "mohit.nemade@example.com"),
+                    _buildContactInfo(FontAwesomeIcons.envelope, "Email", "mohitnemade27@gmail.com"),
                     const SizedBox(height: 15),
-                    _buildContactInfo(FontAwesomeIcons.phone, "Phone", "+91 9876543210"),
+                    _buildContactInfo(FontAwesomeIcons.phone, "Phone", "+91 8208499926"),
                     const SizedBox(height: 15),
-                    _buildContactInfo(FontAwesomeIcons.locationDot, "Location", "Nashik, Maharashtra, India"),
+                    _buildContactInfo(FontAwesomeIcons.locationDot, "Location", "Pune, Maharashtra, India"),
                     const SizedBox(height: 30),
                     const Text(
                       "Follow Me",
@@ -886,13 +933,10 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        _buildSocialIcon(FontAwesomeIcons.linkedin),
+                        _buildSocialIcon(FontAwesomeIcons.linkedin, "https://www.linkedin.com/in/mohit-nemade27"),
                         const SizedBox(width: 15),
-                        _buildSocialIcon(FontAwesomeIcons.github),
+                        _buildSocialIcon(FontAwesomeIcons.github, 'https://github.com/MohitNemade27/mohit_portfolio_flutter'),
                         const SizedBox(width: 15),
-                        _buildSocialIcon(FontAwesomeIcons.twitter),
-                        const SizedBox(width: 15),
-                        _buildSocialIcon(FontAwesomeIcons.instagram),
                       ],
                     ),
                   ],
@@ -927,9 +971,17 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
                 style: const TextStyle(color: Colors.white70),
               ),
               const SizedBox(height: 5),
-              Text(
-                value,
-                style: const TextStyle(color: Colors.white),
+              InkWell(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: value));
+                },
+                child: Tooltip(
+                  message: "Click to copy",
+                  child: Text(
+                    value,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ],
           ),
@@ -970,4 +1022,3 @@ Skilled in Flutter, Dart, Android (Java/Kotlin), and HTML/CSS/JS, I'm passionate
     );
   }
 }
-
