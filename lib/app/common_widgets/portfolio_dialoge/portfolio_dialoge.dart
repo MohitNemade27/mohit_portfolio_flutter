@@ -89,7 +89,7 @@ class ProjectDetailDialog extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child:  CachedNetworkImage(
-                          imageUrl: appImagePath!,
+                          imageUrl: 'https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/$appImagePath',
                           height: 180,
                           width: double.infinity,
                           fit: BoxFit.cover,
