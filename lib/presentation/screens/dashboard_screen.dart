@@ -112,13 +112,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         automaticallyImplyLeading: isMobile, // allow drawer icon on mobile
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.black.withOpacity(0.7),
-        title: Container(
-          height: 100,
-          width: 100,
-          decoration: getGlassCardDecoration(),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: CachedNetworkImage(
+              height: 50,
+              width: 50,
               fit: BoxFit.fill,
               imageUrl: "https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/assets/LOGO.jpg",
               placeholder: (context, url) => CircularProgressIndicator(),
@@ -249,8 +249,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 100,
-                          width: 100,
+                          height: 60,
+                          width: 60,
                           decoration: getGlassCardDecoration(),
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
