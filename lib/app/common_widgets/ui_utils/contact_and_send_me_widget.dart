@@ -88,16 +88,29 @@ ${_messageController.text}
             ),
             const SizedBox(height: 20),
             Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: ElevatedButton(
-                  onPressed: _sendMail,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                  ),
-                  child: const Text("Send Message"),
-                ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  double width;
+                  if (constraints.maxWidth < 600) {
+                    width = constraints.maxWidth * 0.9; // Mobile
+                  } else if (constraints.maxWidth < 1024) {
+                    width = constraints.maxWidth * 0.5; // Tablet
+                  } else {
+                    width = constraints.maxWidth * 0.25; // Desktop
+                  }
+
+                  return SizedBox(
+                    width: width,
+                    child: ElevatedButton(
+                      onPressed: _sendMail,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                      ),
+                      child: const Text("Send Message"),
+                    ),
+                  );
+                },
               ),
             ),
           ],
