@@ -61,17 +61,17 @@ class ProjectDetailDialog extends StatelessWidget {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (context) => Dialog( // Use the context from the builder
+                        builder: (context) => Dialog(
                           backgroundColor: Colors.black,
-                          child: Stack( // Use a Stack to position the close button
+                          child: Stack(
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: PhotoView(
-                                  imageProvider: CachedNetworkImageProvider(appImagePath!),
+                                  imageProvider: CachedNetworkImageProvider("https://raw.githubusercontent.com/MohitNemade27/mohit_portfolio_flutter/main/$appImagePath"),
                                 ),
                               ),
-                              Positioned( // Position the close button
+                              Positioned(
                                 top: 10,
                                 right: 10,
                                 child: IconButton(

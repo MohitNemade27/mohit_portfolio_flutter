@@ -427,12 +427,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             child: const Padding(
                               padding: EdgeInsets.all(12.0),
                               child: Text(
-                                '''I'm Mohit Nemade, a Flutter Developer with over 3 years of experience in building robust, offline-first mobile applications. Currently, I serve as a Product Software Engineer at Wolters Kluwer, where I contribute to enterprise solutions and legal tech applications. Previously, at StandardWings Technology, I developed cross-platform applications with a focus on UI/UX design. 
-                         
-              My technical expertise includes Flutter, Dart, Android (Java/Kotlin), and web technologies like HTML, CSS, and JavaScript. I'm passionate about creating clean, scalable mobile solutions and am open to opportunities in Nashik, Pune, or Bengaluru, especially in the fields of mobile development, AI, or IoT.''',
-                                style: TextStyle(color: Colors.white60, height: 1.8, fontSize: 16),
-                                textAlign: TextAlign.center,
-                              ),
+                                '''I'm Mohit Nemade, a Flutter Developer with over 3 years of experience building robust, offline-first mobile applications.
+
+Currently, I work as a Product Software Engineer at Wolters Kluwer, contributing to enterprise solutions and legal tech applications. Previously at StandardWings Technology, I developed cross-platform apps with a strong focus on UI/UX design.
+
+My technical stack includes Flutter, Dart, Android (Java/Kotlin), and web technologies such as HTML, CSS, and JavaScript. I'm passionate about crafting clean, scalable mobile solutions and open to opportunities in Nashik, Pune, or Bengaluru—particularly in mobile development, AI, or IoT.''',
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  height: 1.6,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.justify,
+                              )
                             ),
                           ),
                         ],
