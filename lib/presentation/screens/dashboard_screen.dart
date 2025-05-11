@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:mohit_portfolio_flutter_web/app/common_widgets/candidate_detail/candidate_dialoge_widgets.dart';
 import 'package:mohit_portfolio_flutter_web/app/common_widgets/glass_box_decoration.dart';
+import 'package:mohit_portfolio_flutter_web/app/common_widgets/ui_utils/contact_and_send_me_widget.dart';
 import 'package:mohit_portfolio_flutter_web/data/work_experience_model.dart';
 import 'package:mohit_portfolio_flutter_web/presentation/project_portfolio/portfolio_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -861,61 +862,7 @@ My technical stack includes Flutter, Dart, Android (Java/Kotlin), and web techno
           alignment: WrapAlignment.center,
           children: [
             // Contact Form
-            Container(
-              width: isMobile
-                  ? MediaQuery.of(context).size.width * 0.9
-                  : isTablet
-                      ? MediaQuery.of(context).size.width * 0.7
-                      : MediaQuery.of(context).size.width * 0.45,
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1E1E1E),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Send a Message",
-                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 20),
-                  _buildTextField("Your Name"),
-                  const SizedBox(height: 15),
-                  _buildTextField("Your Email"),
-                  const SizedBox(height: 15),
-                  _buildTextField("Subject"),
-                  const SizedBox(height: 15),
-                  TextFormField(
-                    maxLines: 5,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Your Message",
-                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.1),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.all(15),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                      ),
-                      child: const Text("Send Message"),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            ContactForm(isMobile: isMobile, isTablet: isTablet),
 
             // Contact Info
               buildContactSection(isMobile, isTablet, context)
