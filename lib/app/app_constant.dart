@@ -8,6 +8,15 @@ Built clinical decision support apps (Advisor & Procedure) for doctors and nurse
 Technologies: Flutter, SQLite, BLoC, Generative AI,Angular, NestJS.
 ''';
 
+const String project1webDetails = '''
+Developed a web-based clinical decision support system (Advisor & Procedure) for doctors and nurses at Wolters Kluwer.
+- Designed responsive, user-friendly UI using Angular and the proprietary Jumpstart design library.
+- Implemented Backend-for-Frontend (BFF) architecture using Express.js to streamline API communication and enhance performance.
+- Integrated Generative AI to build an innovative smart symptom checker with contextual awareness.
+- Ensured high performance and scalability while handling complex and dynamic medical content.
+- Collaborated with cross-functional teams to meet aggressive delivery timelines with strict quality standards.
+Technologies: Angular, Jumpstart UI, Express.js (BFF), Generative AI, REST APIs.
+''';
 const String project2Details = '''
 Pioneered development of a Flutter Desktop application for Nashik Municipal Corporation's waste management system, my first major project involving extensive research and technical innovation.
 
